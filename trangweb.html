@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        /* Overall styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Form styling */
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #007BFF;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .form-toggle {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Styling links */
+        a {
+            color: #007BFF; /* Blue color */
+            text-decoration: none; /* Remove underline */
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #0056b3; /* Darker blue on hover */
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        a:active {
+            color: #004085; /* Even darker color on click */
+        }
+
+        a:visited {
+            color: #6f42c1; /* Light purple for visited links */
+        }
+
+        /* Subtle effect for password input */
+        input[type="password"] {
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        input[type="password"]:focus {
+            background-color: #f1f9ff;
+            border-color: #007BFF;
+        }
+
+        /* Styling for password strength message */
+        small {
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Register</h2>
+    <form id="registerForm" action="/register" method="post"><div class="form-group">
+            <label for="register-email">Email:</label>
+            <input type="email" id="register-email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="register-password">Password:</label>
+            <input type="password" id="register-password" name="password" required>
+            <small id="passwordStrengthMessage" style="color: red;"></small>
+        </div>
+        <div class="form-group">
+            <label for="register-confirm-password">Confirm Password:</label>
+            <input type="password" id="register-confirm-password" name="confirm_password" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Register">
+        </div>
+        <div class="form-toggle">
+            <p>Already have an account? <a href="#" onclick="toggleForms()">Sign in now</a></p>
+        </div>
+    </form>
+
+    <!-- Existing links -->
+    <p>Sign in using <a href="https://accounts.google.com/signin" target="_blank">Google</a>.</p>
+    <p>Follow us on <a href="https://www.facebook.com/profile.php?id=100087914717474&sk=about" target="_blank">Facebook</a> for more updates.</p>
+
+    <!-- New links -->
+    <p>Visit our <a href="https://www.example.com" target="_blank">homepage</a> for more information.</p>
+    <p>Download our <a href="https://www.example.com/document.pdf" target="_blank">PDF document</a>.</p>
+    <p>Connect with us on <a href="https://www.linkedin.com/company/example" target="_blank">LinkedIn</a>.</p>
+
+    <!-- JavaScript code to validate password strength -->
+    <script>
+        document.getElementById('register-password').addEventListener('input', function() {
+            const password = this.value;
+            const messageElement = document.getElementById('passwordStrengthMessage');
+            const isStrong = checkPasswordStrength(password);
+
+            if (isStrong) {
+                messageElement.textContent = 'Strong password.';
+                messageElement.style.color = 'green';
+            } else {
+                messageElement.textContent = 'Weak password. Make sure your password has at least 8 characters, including uppercase, lowercase, numbers, and special characters.';
+                messageElement.style.color = 'red';
+            }
+        });
+
+        function checkPasswordStrength(password) {
+            const lengthCriteria = password.length >= 8;
+            const uppercaseCriteria = /[A-Z]/.test(password);
+            const lowercaseCriteria = /[a-z]/.test(password);
+            const numberCriteria = /[0-9]/.test(password);
+            const specialCharacterCriteria = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+            return lengthCriteria && uppercaseCriteria && lowercaseCriteria && numberCriteria && specialCharacterCriteria;
+        }
+    </script>
+</body>
+</html>
